@@ -1,0 +1,20 @@
+# Dependencies
+**/node_modules/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Build and test output
+**/build/
+**/coverage/
+
+# Local databases and generated uploads
+**/prisma/dev.db
+**/prisma/dev.db-journal
+**/uploads/
+
+# Logs and OS files
+*.log
+.DS_Store
