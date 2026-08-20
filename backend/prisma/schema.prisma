@@ -1,0 +1,177 @@
+// Prisma Schema for Krishi Fare Marketplace (MongoDB)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USER & AUTH ====================
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  phone     String?
+  password  String
+  role      String   @default("FARMER") // ADMIN, FARMER, BUYER
+  avatar    String?  // image ID reference
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // KYC Fields (Buyer specific)
+  aadharNumber  String?
+  gstNumber     String?
+  panNumber     String?
+  kycStatus     String  @default("PENDING") // PENDING, SUBMITTED, VERIFIED, REJECTED
+  kycDocumentId String? // uploaded doc image ID
+
+  // Relations
+  crops         Crop[]         @relation("FarmerCrops")
+  bids          Bid[]          @relation("BuyerBids")
+  purchases     Purchase[]     @relation("BuyerPurchases")
+  sentMessages  Message[]      @relation("MessageSender")
+  chatMember1   Chat[]         @relation("ChatMember1")
+  chatMember2   Chat[]         @relation("ChatMember2")
+  notifications Notification[]
+}
+
+// ==================== CROP LISTING ====================
+
+model Crop {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  category      String // Grain, Vegetable, Fruit, Spice, Pulse, Oilseed, etc.
+  variety       String?
+  quantity      Float
+  unit          String    @default("quintal") // quintal, kg, ton
+  basePrice     Float // farmer's asking price per unit
+  minBidPrice   Float // minimum bid accepted
+  imageIds      String    @default("[]") // JSON array of image IDs
+  status        String    @default("ACTIVE") // ACTIVE, SOLD, EXPIRED, CANCELLED
+  allowBidding  Boolean   @default(true)
+  biddingEndsAt DateTime?
+  location      String?
+  state         String?
+  district      String?
+  harvestDate   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  farmerId  String @db.ObjectId
+  farmer    User       @relation("FarmerCrops", fields: [farmerId], references: [id])
+  bids      Bid[]
+  purchases Purchase[]
+}
+
+// ==================== BIDDING ====================
+
+model Bid {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount    Float
+  message   String?
+  status    String   @default("PENDING") // PENDING, ACCEPTED, REJECTED, OUTBID, EXPIRED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  cropId  String @db.ObjectId
+  crop    Crop   @relation(fields: [cropId], references: [id])
+  buyerId String @db.ObjectId
+  buyer   User   @relation("BuyerBids", fields: [buyerId], references: [id])
+}
+
+// ==================== PURCHASE (Direct Buy) ====================
+
+model Purchase {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  quantity      Float
+  pricePerUnit  Float
+  totalAmount   Float
+  status        String   @default("PENDING") // PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+  paymentStatus String   @default("PENDING") // PENDING, PAID, REFUNDED
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  cropId  String @db.ObjectId
+  crop    Crop   @relation(fields: [cropId], references: [id])
+  buyerId String @db.ObjectId
+  buyer   User   @relation("BuyerPurchases", fields: [buyerId], references: [id])
+}
+
+// ==================== CHAT ====================
+
+model Chat {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  member1Id String @db.ObjectId
+  member1   User      @relation("ChatMember1", fields: [member1Id], references: [id])
+  member2Id String @db.ObjectId
+  member2   User      @relation("ChatMember2", fields: [member2Id], references: [id])
+  messages  Message[]
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  imageId   String? // optional image attachment ID
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  chatId   String @db.ObjectId
+  chat     Chat   @relation(fields: [chatId], references: [id])
+  senderId String @db.ObjectId
+  sender   User   @relation("MessageSender", fields: [senderId], references: [id])
+}
+
+// ==================== NOTIFICATIONS ====================
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO, BID, PURCHASE, CHAT, SYSTEM
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+// ==================== ADMIN SETTINGS ====================
+
+model AdminSetting {
+  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  defaultBiddingDuration Int      @default(24) // hours
+  platformFeePercent     Float    @default(2.0)
+  updatedAt              DateTime @updatedAt
+}
+
+// ==================== MARKET PRICE CACHE ====================
+
+model MarketPriceCache {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  commodity   String
+  state       String?
+  district    String?
+  market      String?
+  variety     String?
+  minPrice    String?
+  maxPrice    String?
+  modalPrice  String?
+  arrivalDate String?
+  unit        String?
+  fetchedAt   DateTime @default(now())
+}
