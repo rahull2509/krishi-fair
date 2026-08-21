@@ -41,7 +41,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Krishi Fare. Made with मिट्टी से प्यार.</span>
+          <span>© {new Date().getFullYear()} Krishi Fair. Made with मिट्टी से प्यार.</span>
           <span>AGMARKNET • AgroMonitoring • Krishi AI</span>
         </div>
       </div>

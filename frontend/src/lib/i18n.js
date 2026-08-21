@@ -1,4 +1,4 @@
-// Bilingual EN/HI dictionary for Krishi Fare
+// Bilingual EN/HI dictionary for Krishi Fair
 import { useUIStore } from "@/store/uiStore";
 
 export const dict = {
@@ -19,7 +19,7 @@ export const dict = {
   "land.hero_h1_a": { en: "A fair price ", hi: "उचित दाम — " },
   "land.hero_h1_b": { en: "for every harvest.", hi: "हर फसल का।" },
   "land.hero_sub": {
-    en: "Krishi Fare connects farmers and verified buyers through a transparent bidding marketplace, real-time mandi prices and AI advisory in your language.",
+    en: "Krishi Fair connects farmers and verified buyers through a transparent bidding marketplace, real-time mandi prices and AI advisory in your language.",
     hi: "कृषि फ़ेयर किसानों और वेरिफ़ाइड खरीदारों को पारदर्शी बोली, असली मंडी भाव और आपकी भाषा में AI सलाहकार से जोड़ता है।",
   },
   "land.cta_farmer": { en: "I am a Farmer", hi: "मैं किसान हूँ" },

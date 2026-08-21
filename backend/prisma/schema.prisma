@@ -1,4 +1,4 @@
-// Prisma Schema for Krishi Fare Marketplace (MongoDB)
+// Prisma Schema for Krishi Fair Marketplace (MongoDB)
 
 generator client {
   provider = "prisma-client-js"

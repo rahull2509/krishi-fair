@@ -1,4 +1,4 @@
-// LocalStorage backed mock DB for Krishi Fare
+// LocalStorage backed mock DB for Krishi Fair
 // Data shape mirrors the Postman collection responses.
 
 const KEY = "krishi-mock-db";
@@ -288,7 +288,7 @@ const SEED_MESSAGES = {
 
 const SEED_SETTINGS = {
   defaultBiddingDurationHours: 48,
-  platformName: "Krishi Fare",
+  platformName: "Krishi Fair",
   updatedAt: new Date().toISOString(),
 };
 

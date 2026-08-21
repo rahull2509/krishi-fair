@@ -39,7 +39,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
-    message: '🌾 Krishi Fare Marketplace API is running!',
+    message: '🌾 Krishi Fair Marketplace API is running!',
     version: '1.0.0',
     timestamp: new Date().toISOString(),
     modules: [
@@ -82,7 +82,7 @@ const PORT = config.port;
 
 app.listen(PORT, () => {
   console.log(`\n🌾 ========================================`);
-  console.log(`   Krishi Fare Marketplace API`);
+  console.log(`   Krishi Fair Marketplace API`);
   console.log(`   Running on: http://localhost:${PORT}`);
   console.log(`   Environment: ${config.nodeEnv}`);
   console.log(`   Health: http://localhost:${PORT}/api/health`);

@@ -115,7 +115,7 @@ export default function RegisterPage() {
             <span className="grid place-items-center w-10 h-10 rounded-lg bg-primary text-primary-foreground">
               <Wheat className="w-5 h-5" />
             </span>
-            <span className="font-display text-2xl">Krishi Fare</span>
+            <span className="font-display text-2xl">Krishi Fair</span>
           </div>
           <p className="text-amber-200 text-xs uppercase tracking-[0.22em]">A new mandi for India</p>
           <h2 className="mt-2 font-display text-4xl xl:text-5xl leading-tight">

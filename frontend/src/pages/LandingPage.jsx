@@ -165,7 +165,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto px-4 lg:px-8">
           <Quote className="w-10 h-10 text-primary/60" />
           <p className="mt-4 font-display text-2xl lg:text-4xl leading-snug tracking-tight">
-            "Pehle bichauliye 2150 dete the. Krishi Fare par direct buyer ne <span className="text-primary">2480 ka bid</span> diya. Ek hi week mein 30 quintal bik gaya."
+            "Pehle bichauliye 2150 dete the. Krishi Fair par direct buyer ne <span className="text-primary">2480 ka bid</span> diya. Ek hi week mein 30 quintal bik gaya."
           </p>
           <p className="mt-6 text-sm uppercase tracking-[0.22em] text-muted-foreground">
             — Ramu Kisan, Amritsar · Wheat Farmer
@@ -179,7 +179,7 @@ export default function LandingPage() {
           <div>
             <p className="label-eyebrow text-amber-300">◇ Ready when you are</p>
             <h3 className="mt-3 font-display text-3xl lg:text-4xl">Bring your harvest to a fair mandi.</h3>
-            <p className="mt-2 text-white/70 text-sm max-w-xl">Demo accounts available — try Krishi Fare with farmer, buyer or admin role in seconds.</p>
+            <p className="mt-2 text-white/70 text-sm max-w-xl">Demo accounts available — try Krishi Fair with farmer, buyer or admin role in seconds.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full px-7 h-12" data-testid="cta-register">
