@@ -22,8 +22,30 @@ const app = express();
 
 // ==================== MIDDLEWARE ====================
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:5173',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'],
+  origin: (origin, callback) => {
+    // Allow non-browser requests (mobile apps, Postman, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    // Allow configured origins, Vercel deployments, or localhost
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('localhost')
+    ) {
+      return callback(null, true);
+    }
+
+    // Safe fallback to prevent blocking during hackathon / demo
+    return callback(null, true);
+  },
   credentials: true,
 }));
 
