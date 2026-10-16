@@ -22,7 +22,7 @@ const Brand = () => (
       <Wheat className="w-5 h-5" strokeWidth={1.8} />
     </span>
     <span className="font-display text-xl tracking-tight">
-      Krishi <span className="text-primary">Fare</span>
+      Krishi <span className="text-primary">Fair</span>
     </span>
   </Link>
 );
